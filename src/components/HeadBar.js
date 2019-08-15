@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/styles";
+import { connect } from "react-redux";
+import { showSearch } from "../actions";
 
 import DateSwitcher from "./DateSwitcher";
 import SearchModal from "./SearchModal";
@@ -21,17 +23,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HeadBar = () => {
-  const [showModal, setShowModal] = useState(false);
+const HeadBar = (props) => {
 
   const toggleModal = () => {
-    setShowModal(!showModal);
+    props.showSearch(!props.isShowSearch)
   };
 
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      
       <div className={classes.searchContainer} onClick={toggleModal}>
         <SearchBar />
       </div>
@@ -39,9 +39,18 @@ const HeadBar = () => {
       {/* Others */}
       <DateSwitcher />
 
-      {showModal ? <SearchModal /> : null}
+      {props.isShowSearch ? <SearchModal onClose={toggleModal} /> : null}
     </div>
   );
 };
 
-export default HeadBar;
+const mapStateToProps = state => {
+  return {
+    isShowSearch: state.base.showSearch
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { showSearch }
+)(HeadBar);

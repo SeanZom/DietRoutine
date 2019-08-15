@@ -8,7 +8,11 @@ import '../styles/main.css';
 
 const appTheme = createMuiTheme({
   palette: {
-    primary: deepPurple
+    primary: deepPurple,
+    text: {
+      primary: "#2E2E2E",
+      secondary: "#535353",
+    }
   }
 });
 

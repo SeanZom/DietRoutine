@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import Divider from '@material-ui/core/Divider';
 
-import CommonItem from './CommonItem';
+import ResultItem from './ResultItem';
 
 
 const useStyles = makeStyles(theme => ({
@@ -21,25 +21,33 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CommonList = ({foods}) => {
+const ResultGroup = ({groupName, groupItems}) => {
   const classes = useStyles();
+
+  if (groupItems.length === 0) {
+    return null;
+  }
 
   return (
     <div>
-      <p className={classes.groupHeader}>Common</p>
+      <p className={classes.groupHeader}>{groupName}</p>
       <List className={classes.root}>
-        {foods.map((food, index) => {
+        {groupItems.map((food, index) => {
           return (
             <div key={food['food_name']}>
-              <CommonItem food={food} />
-              <Divider variant={index === foods.length - 1 ? 'fullWidth' : 'inset'} component="li" />
+              <ResultItem
+                thumb={food.photo.thumb}
+                thumbAlt={food["food_name"]}
+                title={food["food_name"]}
+                subTitle={food["brand_name"]}
+               />
+              <Divider variant={index === groupItems.length - 1 ? 'fullWidth' : 'inset'} component="li" />
             </div>
           );
         })}
       </List>
-    </div>
-    
+    </div>    
   );
 }
 
-export default CommonList;
+export default ResultGroup;

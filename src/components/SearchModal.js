@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import Modal from "./Modal";
 import SearchBar from "./SearchBar";
 import { clearCurrentResult } from "../actions";
-import CommonList from "./CommonList";
+import ResultList from "./ResultList";
 
 const useStyles = makeStyles(theme => ({
   contentContainer: {
@@ -25,7 +25,6 @@ const SearchModal = ({ onClose, foods, currentResult, clearCurrentResult }) => {
   const classes = useStyles();
 
   const pageClick = ({ target }) => {
-    console.log(target);
     if (target.parentNode.id === "modal") {
       clearCurrentResult();
       onClose();
@@ -44,7 +43,7 @@ const SearchModal = ({ onClose, foods, currentResult, clearCurrentResult }) => {
     if (currentResult && foods[currentResult]) {
       return (
         <Paper className={classes.result}>
-          <CommonList foods={foods[currentResult].common} />
+          <ResultList foods={foods[currentResult]} />
         </Paper>
       );
     }

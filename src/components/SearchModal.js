@@ -8,6 +8,7 @@ import Modal from "./Modal";
 import SearchBar from "./SearchBar";
 import { clearCurrentResult } from "../actions";
 import ResultList from "./ResultList";
+import DetailDialog from "./DetailDialog";
 
 const useStyles = makeStyles(theme => ({
   contentContainer: {
@@ -65,6 +66,7 @@ const SearchModal = ({
       return (
         <Paper className={classes.result}>
           <ResultList foods={foods[currentResult]} />
+          <DetailDialog />
         </Paper>
       );
     }
@@ -86,7 +88,7 @@ const mapStateToProps = state => {
   return {
     foods: state.foods,
     currentResult: state.base.currentResult,
-    isLoading: state.base.isLoading,
+    isLoading: state.base.isLoading
   };
 };
 

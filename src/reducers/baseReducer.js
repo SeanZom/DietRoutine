@@ -4,7 +4,9 @@ import {
   SEARCH_CONTENT,
   CURRENT_RESULT,
   CLEAR_CURRENT_RESULT,
-  LOADING
+  LOADING,
+  OPEN_DIALOG,
+  SELECTED_FOOD
 } from "../actions/types";
 
 export default (state = {}, action) => {
@@ -19,6 +21,10 @@ export default (state = {}, action) => {
       return _.omit(state, "currentResult");
     case LOADING:
       return { ...state, isLoading: action.payload };
+    case OPEN_DIALOG:
+      return { ...state, isOpenDialog: action.payload };
+    case SELECTED_FOOD:
+      return { ...state, selectedFood: action.payload };
     default:
       return state;
   }

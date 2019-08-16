@@ -2,9 +2,12 @@ import {
   SHOW_SEARCH,
   SEARCH_CONTENT,
   FETCH_FOODS,
+  FETCH_DETAIL,
   CURRENT_RESULT,
   CLEAR_CURRENT_RESULT,
-  LOADING
+  LOADING,
+  OPEN_DIALOG,
+  SELECTED_FOOD
 } from "./types";
 import nutritionix from "../apis/nutritionix";
 
@@ -53,6 +56,18 @@ export const fetchFoods = query => async dispatch => {
   });
 };
 
+export const fetchDetail = query => async dispatch => {
+  const response = await nutritionix.post('/natural/nutrients', {query});
+
+  dispatch({
+    type: FETCH_DETAIL,
+    payload: {
+      name: query,
+      data: response.data.foods[0]
+    }
+  })
+}
+
 export const clearCurrentResult = () => {
   return {
     type: CLEAR_CURRENT_RESULT
@@ -65,3 +80,17 @@ export const setLoading = loading => {
     payload: loading
   };
 };
+
+export const setOpenDialog = isOpen => {
+  return {
+    type: OPEN_DIALOG,
+    payload: isOpen
+  }
+}
+
+export const setSelectedFood = food => {
+  return {
+    type: SELECTED_FOOD,
+    payload: food
+  }
+}

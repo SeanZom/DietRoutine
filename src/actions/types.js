@@ -5,3 +5,5 @@ export const FETCH_FOODS = 'FETCH_FOODS';
 export const CURRENT_RESULT = 'CURRENT_RESULT';
 export const CLEAR_CURRENT_RESULT = 'CLEAR_CURRENT_RESULT';
 export const LOADING = 'LOADING';
+export const OPEN_DIALOG = 'OPEN_DIALOG';
+export const SELECTED_FOOD = 'SELECTED_FOOD';

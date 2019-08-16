@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-import Divider from '@material-ui/core/Divider';
+import Divider from "@material-ui/core/Divider";
 
-import ResultItem from './ResultItem';
-
+import ResultItem from "./ResultItem";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,14 +14,14 @@ const useStyles = makeStyles(theme => ({
   groupHeader: {
     fontSize: "0.9rem",
     fontWeight: 500,
-    padding: '12px 16px',
+    padding: "12px 16px",
     letterSpacing: ".1rem",
     textTransform: "uppercase",
     color: theme.palette.text.secondary
   }
 }));
 
-const ResultGroup = ({groupName, groupItems}) => {
+const ResultGroup = ({ groupName, groupItems }) => {
   const classes = useStyles();
 
   if (groupItems.length === 0) {
@@ -35,20 +34,20 @@ const ResultGroup = ({groupName, groupItems}) => {
       <List className={classes.root}>
         {groupItems.map((food, index) => {
           return (
-            <div key={food['food_name']}>
-              <ResultItem
-                thumb={food.photo.thumb}
-                thumbAlt={food["food_name"]}
-                title={food["food_name"]}
-                subTitle={food["brand_name"]}
-               />
-              <Divider variant={index === groupItems.length - 1 ? 'fullWidth' : 'inset'} component="li" />
+            <div key={food["food_name"]}>
+              <ResultItem food={food} />
+              <Divider
+                variant={
+                  index === groupItems.length - 1 ? "fullWidth" : "inset"
+                }
+                component="li"
+              />
             </div>
           );
         })}
       </List>
-    </div>    
+    </div>
   );
-}
+};
 
 export default ResultGroup;

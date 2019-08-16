@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
   searchContainer: {
     width: "100%",
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       width: "560px"
     }
   }

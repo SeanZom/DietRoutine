@@ -5,6 +5,7 @@ import deepPurple from "@material-ui/core/colors/deepPurple";
 
 import HeadBar from "./HeadBar";
 import FabAdd from "./FabAdd";
+import MainContent from "./MainContent";
 import "../styles/main.css";
 
 const appTheme = createMuiTheme({
@@ -17,12 +18,19 @@ const appTheme = createMuiTheme({
   }
 });
 
+const style = {
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100vh'
+}
+
 class App extends React.Component {
   render() {
     return (
       <ThemeProvider theme={appTheme}>
-        <div>
+        <div style={style}>
           <HeadBar />
+          <MainContent />
           <FabAdd />
         </div>
       </ThemeProvider>

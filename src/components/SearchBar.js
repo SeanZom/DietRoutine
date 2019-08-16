@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.common.white,
     width: "100%",
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       width: "560px"
     }
   },

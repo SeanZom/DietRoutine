@@ -4,6 +4,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRightcon from "@material-ui/icons/KeyboardArrowRight";
 
+import DetailDialog from './DetailDialog';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -37,6 +39,8 @@ const DateSwitcher = () => {
       <IconButton>
         <ArrowRightcon className={classes.icon}/>
       </IconButton>
+
+      <DetailDialog />
     </div>
   );
 };

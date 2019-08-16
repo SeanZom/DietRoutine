@@ -15,12 +15,18 @@ const ResultItem = ({ thumb, thumbAlt, title, subTitle }) => {
   const classes = useStyles();
 
   return (
-    <ListItem>
-      <ListItemAvatar>
-        <Avatar classes={{ root: classes.thumb }} alt={thumbAlt} src={thumb} />
-      </ListItemAvatar>
-      <ListItemText primary={title} secondary={subTitle} />
-    </ListItem>
+    <div>
+      <ListItem button>
+        <ListItemAvatar>
+          <Avatar
+            classes={{ root: classes.thumb }}
+            alt={thumbAlt}
+            src={thumb}
+          />
+        </ListItemAvatar>
+        <ListItemText primary={title} secondary={subTitle} />
+      </ListItem>
+    </div>
   );
 };
 

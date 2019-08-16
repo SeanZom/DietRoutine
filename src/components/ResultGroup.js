@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
   groupHeader: {
     fontSize: "0.9rem",
+    fontWeight: 500,
     padding: '12px 16px',
     letterSpacing: ".1rem",
     textTransform: "uppercase",

@@ -3,7 +3,8 @@ import {
   SHOW_SEARCH,
   SEARCH_CONTENT,
   CURRENT_RESULT,
-  CLEAR_CURRENT_RESULT
+  CLEAR_CURRENT_RESULT,
+  LOADING
 } from "../actions/types";
 
 export default (state = {}, action) => {
@@ -15,7 +16,9 @@ export default (state = {}, action) => {
     case CURRENT_RESULT:
       return { ...state, currentResult: action.payload };
     case CLEAR_CURRENT_RESULT:
-      return _.omit(state, 'currentResult');
+      return _.omit(state, "currentResult");
+    case LOADING:
+      return { ...state, isLoading: action.payload };
     default:
       return state;
   }

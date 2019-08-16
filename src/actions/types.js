@@ -4,3 +4,4 @@ export const FETCH_DETAIL = 'FETCH_DETAIL';
 export const FETCH_FOODS = 'FETCH_FOODS';
 export const CURRENT_RESULT = 'CURRENT_RESULT';
 export const CLEAR_CURRENT_RESULT = 'CLEAR_CURRENT_RESULT';
+export const LOADING = 'LOADING';

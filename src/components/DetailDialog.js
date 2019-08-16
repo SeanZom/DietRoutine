@@ -278,6 +278,10 @@ const DetailDialog = ({
                     ),
                     onBlur: formatServings
                   }}
+                  inputProps={{
+                    min: nutrient.serving_qty,
+                    step: nutrient.serving_qty
+                  }}
                 />
                 <div className={classes.dataContainer}>
                   <DataText primary={grams} secondary="grams" textAlign="end" />

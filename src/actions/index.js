@@ -56,8 +56,8 @@ export const fetchFoods = query => async dispatch => {
   });
 };
 
-export const fetchDetail = query => async dispatch => {
-  const response = await nutritionix.post('/natural/nutrients', {query});
+export const fetchCommonDetail = query => async dispatch => {
+  const response = await nutritionix.post("/natural/nutrients", { query });
 
   dispatch({
     type: FETCH_DETAIL,
@@ -65,8 +65,20 @@ export const fetchDetail = query => async dispatch => {
       name: query,
       data: response.data.foods[0]
     }
-  })
-}
+  });
+};
+
+export const fetchBrandedDetail = itemId => async dispatch => {
+  const response = await nutritionix.get(`/search/item?nix_item_id=${itemId}`);
+
+  dispatch({
+    type: FETCH_DETAIL,
+    payload: {
+      name: itemId,
+      data: response.data.foods[0]
+    }
+  });
+};
 
 export const clearCurrentResult = () => {
   return {
@@ -85,12 +97,12 @@ export const setOpenDialog = isOpen => {
   return {
     type: OPEN_DIALOG,
     payload: isOpen
-  }
-}
+  };
+};
 
 export const setSelectedFood = food => {
   return {
     type: SELECTED_FOOD,
     payload: food
-  }
-}
+  };
+};

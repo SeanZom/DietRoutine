@@ -19,7 +19,11 @@ import FilledInput from "@material-ui/core/FilledInput";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import DataText from "./DataText";
-import { fetchDetail, setOpenDialog } from "../actions";
+import {
+  fetchCommonDetail,
+  fetchBrandedDetail,
+  setOpenDialog
+} from "../actions";
 
 const styles = theme => ({
   root: {
@@ -145,19 +149,78 @@ const useStyles = makeStyles(theme => ({
 const DetailDialog = ({
   open,
   food,
+  isCommon,
   apiQuery,
   nutrient,
-  fetchDetail,
+  fetchCommonDetail,
+  fetchBrandedDetail,
   setOpenDialog
 }) => {
   const classes = useStyles();
+
   const [addTo, setAddTo] = useState(1);
+  const [servings, setServings] = useState(0);
+  const [grams, setGrams] = useState(0);
+  const [calories, setCalories] = useState(0);
+
+  const updateServings = value => {
+    setServings(value);
+    const qty = calcFormatServings(value);
+    updateGrams(qty);
+    updateCalories(qty);
+  };
+
+  const formatServings = () => {
+    setServings(calcFormatServings(servings));
+  };
+
+  const updateGrams = qty => {
+    const newGrams = nutrient.serving_weight_grams * qty;
+    setGrams(Math.round(newGrams));
+  };
+
+  const updateCalories = qty => {
+    const newCaloires = nutrient.nf_calories * qty;
+    setCalories(Math.round(newCaloires));
+  };
+
+  const calcFormatServings = value => {
+    const qty = nutrient.serving_qty;
+    let newVal;
+    if (value < qty) {
+      newVal = qty;
+    } else {
+      newVal = Math.round(value / qty) * qty;
+    }
+    return newVal;
+  };
+
+  const onCounterClick = (operation) => {
+    let newVal;
+    if (operation === 'add') {
+      newVal = servings + nutrient.serving_qty;
+    } else {
+      newVal = servings - nutrient.serving_qty;
+      if (newVal < nutrient.serving_qty) {
+        newVal = nutrient.serving_qty;
+      }
+    }
+    updateServings(newVal);
+  }
 
   useEffect(() => {
     if (open && !nutrient) {
-      fetchDetail(apiQuery);
+
+      if (isCommon) {
+        fetchCommonDetail(apiQuery);
+      } else {
+        fetchBrandedDetail(apiQuery)
+      }
     }
-  }, [open]);
+    if (nutrient) {
+      updateServings(nutrient.serving_qty);
+    }
+  }, [open, nutrient]);
 
   if (!food) {
     return null;
@@ -194,33 +257,36 @@ const DetailDialog = ({
                 <TextField
                   id="filled-servings"
                   label="Servings"
-                  defaultValue="1.0"
+                  value={servings}
+                  onChange={e => updateServings(e.target.value)}
                   helperText={food["serving_unit"].split(" ")[0]}
                   margin="none"
                   variant="filled"
+                  type="number"
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
                         <div className={classes.counter}>
-                          <IconButton aria-label="add" size="small">
+                          <IconButton aria-label="add" size="small" onClick={() => onCounterClick('add')}>
                             <ArrowUpIcon fontSize="inherit" />
                           </IconButton>
-                          <IconButton aria-label="sub" size="small">
+                          <IconButton aria-label="sub" size="small" onClick={() => onCounterClick('sub')}>
                             <ArrowDownIcon fontSize="inherit" />
                           </IconButton>
                         </div>
                       </InputAdornment>
-                    )
+                    ),
+                    onBlur: formatServings
                   }}
                 />
                 <div className={classes.dataContainer}>
-                  <DataText primary="28" secondary="grams" alignItems="end" />
+                  <DataText primary={grams} secondary="grams" textAlign="end" />
                 </div>
                 <div className={classes.dataContainer}>
                   <DataText
-                    primary="113"
+                    primary={calories}
                     secondary="calories"
-                    alignItems="end"
+                    textAlign="end"
                   />
                 </div>
               </div>
@@ -272,8 +338,9 @@ const mapStateToProps = state => {
   const food = state.base.selectedFood;
   let nutrient;
   let detailKey;
+  let isCommon = true;
   if (food) {
-    const isCommon = !_.has(food, "nix_item_id");
+    isCommon = !_.has(food, "nix_item_id");
     detailKey = isCommon ? food["food_name"] : food["nix_item_id"];
     const detail = state.details[detailKey];
 
@@ -287,6 +354,7 @@ const mapStateToProps = state => {
   }
 
   return {
+    isCommon: isCommon,
     apiQuery: detailKey,
     nutrient: nutrient,
     open: state.base.isOpenDialog,
@@ -296,5 +364,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchDetail, setOpenDialog }
+  { fetchCommonDetail, fetchBrandedDetail, setOpenDialog }
 )(DetailDialog);

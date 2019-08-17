@@ -10,16 +10,23 @@ import { setSelectedDate } from "../actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: "white",
+    width: "100%",
+    padding: theme.spacing(0.5, 2),
+    [theme.breakpoints.up("md")]: {
+      backgroundColor: theme.palette.primary.main
+    },
+  },
+  container: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "white",
     color: "white",
     width: "100%",
-    marginTop: theme.spacing(1),
     [theme.breakpoints.up("md")]: {
       width: "560px",
-      backgroundColor: theme.palette.primary.main
     },
 
     "& h2": {
@@ -29,7 +36,7 @@ const useStyles = makeStyles(theme => ({
       [theme.breakpoints.up("md")]: {
         fontSize: "1.9rem",
         fontWeight: 300,
-        color: 'white',
+        color: "white"
       }
     }
   },
@@ -72,13 +79,15 @@ const DateSwitcher = ({ currentDate, setSelectedDate }) => {
 
   return (
     <div className={classes.root}>
-      <IconButton onClick={() => handleDateSwitch("prev")}>
-        <ArrowLeftIcon className={classes.icon} />
-      </IconButton>
-      <h2>{currentDate}</h2>
-      <IconButton onClick={() => handleDateSwitch("next")}>
-        <ArrowRightcon className={classes.icon} />
-      </IconButton>
+      <div className={classes.container}>
+        <IconButton onClick={() => handleDateSwitch("prev")}>
+          <ArrowLeftIcon className={classes.icon} />
+        </IconButton>
+        <h2>{currentDate}</h2>
+        <IconButton onClick={() => handleDateSwitch("next")}>
+          <ArrowRightcon className={classes.icon} />
+        </IconButton>
+      </div>
     </div>
   );
 };

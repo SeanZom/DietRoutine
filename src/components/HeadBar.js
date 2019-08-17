@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/styles";
 import { connect } from "react-redux";
 import { showSearch } from "../actions";
 
-import DateSwitcher from "./DateSwitcher";
 import SearchModal from "./SearchModal";
 import SearchBar from "./SearchBar";
 
@@ -36,8 +35,6 @@ const HeadBar = (props) => {
         <SearchBar />
       </div>
 
-      {/* Others */}
-      <DateSwitcher />
 
       {props.isShowSearch ? <SearchModal onClose={toggleModal} /> : null}
     </div>

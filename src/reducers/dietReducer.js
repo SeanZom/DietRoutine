@@ -95,6 +95,7 @@ const dataPoints = [
         nix_item_id: "598c0695306b814040ff908b",
         food_name: "Boneless Skinless Chicken Breasts",
         serving_unit: "oz",
+        serving_weight_grams: 112,
         serving_qty: 4,
         nf_calories: 110,
         serving_size: 1,

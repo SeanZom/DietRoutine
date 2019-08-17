@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 import DataText from "./DataText";
+import { calcTotal } from "../utils/mathutil";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between"
   },
   progressContainer: {
-    margin: theme.spacing(3, 0),
+    margin: theme.spacing(3, 0)
   },
   percentage: {
     color: theme.palette.text.secondary,
@@ -47,6 +48,8 @@ const DietData = ({
 }) => {
   const classes = useStyles();
 
+  const progressCursorOffset = percentageOfLimit > 100 ? 100 : percentageOfLimit;
+
   return (
     <div className={classes.root}>
       <div className={classes.calContainer}>
@@ -58,8 +61,11 @@ const DietData = ({
         <DataText primary="1500 cal" secondary="daily goal" textAlign="end" />
       </div>
       <div className={classes.progressContainer}>
-        <LinearProgress variant="determinate" value={percentageOfLimit} />
-        <p className={classes.percentage} style={{left: `${percentageOfLimit}%`}}>{`${percentageOfLimit}%`}</p>
+        <LinearProgress variant="determinate" value={progressCursorOffset} />
+        <p
+          className={classes.percentage}
+          style={{ left: `${progressCursorOffset}%` }}
+        >{`${percentageOfLimit}%`}</p>
       </div>
       <div className={classes.categoryContainer}>
         <DataText primary={breakfastCalo} secondary="Breakfast" />
@@ -77,9 +83,10 @@ const calcCalories = (list, type) => {
   const totalCalories = targetList.reduce((acc, currentItem) => {
     return (
       acc +
-      Math.round(
-        (currentItem.serving_size / currentItem.serving_qty) *
-          currentItem.nf_calories
+      calcTotal(
+        currentItem.serving_qty,
+        currentItem.nf_calories,
+        currentItem.serving_size
       )
     );
   }, 0);
@@ -97,16 +104,13 @@ const mapStateToProps = state => {
   let total = 0;
   let percentageOfLimit = 0;
   if (currentData && currentData.intake_list.length > 0) {
-    const currentIntakeList = currentData.intake_list
+    const currentIntakeList = currentData.intake_list;
     breakfastCalo = calcCalories(currentIntakeList, "breakfast");
     lunchCalo = calcCalories(currentIntakeList, "lunch");
     dinnerCalo = calcCalories(currentIntakeList, "dinner");
     snackCalo = calcCalories(currentIntakeList, "snack");
     total = breakfastCalo + lunchCalo + dinnerCalo + snackCalo;
     percentageOfLimit = Math.round((total / 1500) * 100);
-    if (percentageOfLimit > 100) {
-      percentageOfLimit = 100;
-    }
   }
 
   return {

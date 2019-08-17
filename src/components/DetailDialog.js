@@ -158,7 +158,7 @@ const DetailDialog = ({
 }) => {
   const classes = useStyles();
 
-  const [addTo, setAddTo] = useState(1);
+  const [addTo, setAddTo] = useState('breakfast');
   const [servings, setServings] = useState(0);
   const [grams, setGrams] = useState(0);
   const [calories, setCalories] = useState(0);
@@ -314,10 +314,10 @@ const DetailDialog = ({
                     />
                   }
                 >
-                  <option value={1}>Breakfast</option>
-                  <option value={2}>Lunch</option>
-                  <option value={3}>Dinner</option>
-                  <option value={4}>Snack</option>
+                  <option value='breakfast'>Breakfast</option>
+                  <option value='lunch'>Lunch</option>
+                  <option value='dinner'>Dinner</option>
+                  <option value='snack'>Snack</option>
                 </Select>
               </div>
             </div>

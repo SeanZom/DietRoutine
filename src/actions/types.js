@@ -7,3 +7,5 @@ export const CLEAR_CURRENT_RESULT = 'CLEAR_CURRENT_RESULT';
 export const LOADING = 'LOADING';
 export const OPEN_DIALOG = 'OPEN_DIALOG';
 export const SELECTED_FOOD = 'SELECTED_FOOD';
+export const SELECTED_DATE = 'SELECTED_DATE';
+export const ADD_TO_INTAKE = 'ADD_TO_INTAKE';

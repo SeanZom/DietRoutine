@@ -6,7 +6,8 @@ import {
   CLEAR_CURRENT_RESULT,
   LOADING,
   OPEN_DIALOG,
-  SELECTED_FOOD
+  SELECTED_FOOD,
+  SELECTED_DATE
 } from "../actions/types";
 
 export default (state = {}, action) => {
@@ -25,6 +26,8 @@ export default (state = {}, action) => {
       return { ...state, isOpenDialog: action.payload };
     case SELECTED_FOOD:
       return { ...state, selectedFood: action.payload };
+    case SELECTED_DATE:
+      return { ...state, selectedDate: action.payload };
     default:
       return state;
   }

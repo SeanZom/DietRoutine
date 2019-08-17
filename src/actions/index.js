@@ -7,7 +7,9 @@ import {
   CLEAR_CURRENT_RESULT,
   LOADING,
   OPEN_DIALOG,
-  SELECTED_FOOD
+  SELECTED_FOOD,
+  SELECTED_DATE,
+  ADD_TO_INTAKE
 } from "./types";
 import nutritionix from "../apis/nutritionix";
 
@@ -106,3 +108,18 @@ export const setSelectedFood = food => {
     payload: food
   };
 };
+
+export const setSelectedDate = date => {
+  return {
+    type: SELECTED_DATE,
+    payload: date
+  };
+};
+
+export const addToIntake = food => {
+  return {
+    type: ADD_TO_INTAKE,
+    payload: food
+  };
+};
+

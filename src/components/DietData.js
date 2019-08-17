@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
@@ -12,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "1.5px solid rgba(0, 0, 0, 0.12)",
     padding: theme.spacing(2.5),
     [theme.breakpoints.up("md")]: {
-      borderBottom: 'none',
+      borderBottom: "none"
     }
   },
   calContainer: {
@@ -24,40 +25,101 @@ const useStyles = makeStyles(theme => ({
   },
   percentage: {
     color: theme.palette.text.secondary,
-    position: 'relative',
-    display: 'inline-block',
+    position: "relative",
+    display: "inline-block",
     top: 10,
-    left: '85%',
-    transform: 'translateX(-50%)',
+    transform: "translateX(-50%)"
   },
   categoryContainer: {
-    display: 'flex',
+    display: "flex",
     justifyContent: "space-evenly",
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1)
   }
 }));
 
-const DietData = () => {
+const DietData = ({
+  breakfastCalo,
+  lunchCalo,
+  dinnerCalo,
+  snackCalo,
+  total,
+  percentageOfLimit
+}) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div className={classes.calContainer}>
-        <DataText primary="1289 cal" secondary="consumed" textAlign="start" />
+        <DataText
+          primary={`${total} cal`}
+          secondary="consumed"
+          textAlign="start"
+        />
         <DataText primary="1500 cal" secondary="daily goal" textAlign="end" />
       </div>
       <div className={classes.progressContainer}>
-        <LinearProgress variant="determinate" value={85} />
-        <p className={classes.percentage}>{'85%'}</p>
+        <LinearProgress variant="determinate" value={percentageOfLimit} />
+        <p className={classes.percentage} style={{left: `${percentageOfLimit}%`}}>{`${percentageOfLimit}%`}</p>
       </div>
       <div className={classes.categoryContainer}>
-        <DataText primary="153" secondary="Breakfast" />
-        <DataText primary="570" secondary="Lunch" />
-        <DataText primary="453" secondary="Dinner" />
-        <DataText primary="113" secondary="Snack" />
+        <DataText primary={breakfastCalo} secondary="Breakfast" />
+        <DataText primary={lunchCalo} secondary="Lunch" />
+        <DataText primary={dinnerCalo} secondary="Dinner" />
+        <DataText primary={snackCalo} secondary="Snack" />
       </div>
     </div>
   );
 };
 
-export default DietData;
+const calcCalories = (list, type) => {
+  const targetList = list.filter(item => item.meal_type === type);
+
+  const totalCalories = targetList.reduce((acc, currentItem) => {
+    return (
+      acc +
+      Math.round(
+        (currentItem.serving_size / currentItem.serving_qty) *
+          currentItem.nf_calories
+      )
+    );
+  }, 0);
+
+  return totalCalories;
+};
+
+const mapStateToProps = state => {
+  const selectedDate = state.base.selectedDate;
+  const currentData = state.diet.find(item => item.date === selectedDate);
+  let breakfastCalo = 0;
+  let lunchCalo = 0;
+  let dinnerCalo = 0;
+  let snackCalo = 0;
+  let total = 0;
+  let percentageOfLimit = 0;
+  if (currentData && currentData.intake_list.length > 0) {
+    const currentIntakeList = currentData.intake_list
+    breakfastCalo = calcCalories(currentIntakeList, "breakfast");
+    lunchCalo = calcCalories(currentIntakeList, "lunch");
+    dinnerCalo = calcCalories(currentIntakeList, "dinner");
+    snackCalo = calcCalories(currentIntakeList, "snack");
+    total = breakfastCalo + lunchCalo + dinnerCalo + snackCalo;
+    percentageOfLimit = Math.round((total / 1500) * 100);
+    if (percentageOfLimit > 100) {
+      percentageOfLimit = 100;
+    }
+  }
+
+  return {
+    breakfastCalo,
+    lunchCalo,
+    dinnerCalo,
+    snackCalo,
+    total,
+    percentageOfLimit
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(DietData);

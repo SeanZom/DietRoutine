@@ -22,7 +22,10 @@ import DataText from "./DataText";
 import {
   fetchCommonDetail,
   fetchBrandedDetail,
-  setOpenDialog
+  setOpenDialog,
+  addToIntake,
+  showSearch,
+  clearCurrentResult
 } from "../actions";
 
 const styles = theme => ({
@@ -154,11 +157,14 @@ const DetailDialog = ({
   nutrient,
   fetchCommonDetail,
   fetchBrandedDetail,
-  setOpenDialog
+  setOpenDialog,
+  addToIntake,
+  showSearch,
+  clearCurrentResult
 }) => {
   const classes = useStyles();
 
-  const [addTo, setAddTo] = useState('breakfast');
+  const [addTo, setAddTo] = useState("breakfast");
   const [servings, setServings] = useState(0);
   const [grams, setGrams] = useState(0);
   const [calories, setCalories] = useState(0);
@@ -195,9 +201,9 @@ const DetailDialog = ({
     return newVal;
   };
 
-  const onCounterClick = (operation) => {
+  const onCounterClick = operation => {
     let newVal;
-    if (operation === 'add') {
+    if (operation === "add") {
       newVal = servings + nutrient.serving_qty;
     } else {
       newVal = servings - nutrient.serving_qty;
@@ -206,15 +212,14 @@ const DetailDialog = ({
       }
     }
     updateServings(newVal);
-  }
+  };
 
   useEffect(() => {
     if (open && !nutrient) {
-
       if (isCommon) {
         fetchCommonDetail(apiQuery);
       } else {
-        fetchBrandedDetail(apiQuery)
+        fetchBrandedDetail(apiQuery);
       }
     }
     if (nutrient) {
@@ -228,6 +233,28 @@ const DetailDialog = ({
 
   const handleClose = () => {
     setOpenDialog(false);
+  };
+
+  const handleAddToIntake = () => {
+    const intake = {
+      food_name: food.food_name,
+      serving_qty: nutrient.serving_qty,
+      serving_unit: food.serving_unit,
+      serving_weight_grams: nutrient.serving_weight_grams,
+      nf_calories: nutrient.nf_calories,
+      serving_size: calcFormatServings(servings),
+      meal_type: addTo,
+      thumb: food.photo.thumb
+    };
+
+    if (!isCommon) {
+      intake["nix_item_id"] = food.nix_item_id;
+    }
+
+    addToIntake(intake);
+    handleClose();
+    showSearch(false);
+    clearCurrentResult();
   };
 
   return (
@@ -267,10 +294,18 @@ const DetailDialog = ({
                     endAdornment: (
                       <InputAdornment position="end">
                         <div className={classes.counter}>
-                          <IconButton aria-label="add" size="small" onClick={() => onCounterClick('add')}>
+                          <IconButton
+                            aria-label="add"
+                            size="small"
+                            onClick={() => onCounterClick("add")}
+                          >
                             <ArrowUpIcon fontSize="inherit" />
                           </IconButton>
-                          <IconButton aria-label="sub" size="small" onClick={() => onCounterClick('sub')}>
+                          <IconButton
+                            aria-label="sub"
+                            size="small"
+                            onClick={() => onCounterClick("sub")}
+                          >
                             <ArrowDownIcon fontSize="inherit" />
                           </IconButton>
                         </div>
@@ -314,10 +349,10 @@ const DetailDialog = ({
                     />
                   }
                 >
-                  <option value='breakfast'>Breakfast</option>
-                  <option value='lunch'>Lunch</option>
-                  <option value='dinner'>Dinner</option>
-                  <option value='snack'>Snack</option>
+                  <option value="breakfast">Breakfast</option>
+                  <option value="lunch">Lunch</option>
+                  <option value="dinner">Dinner</option>
+                  <option value="snack">Snack</option>
                 </Select>
               </div>
             </div>
@@ -325,7 +360,7 @@ const DetailDialog = ({
           <DialogActions>
             <Button
               variant="contained"
-              onClick={handleClose}
+              onClick={handleAddToIntake}
               color="primary"
               size="large"
             >
@@ -368,5 +403,12 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchCommonDetail, fetchBrandedDetail, setOpenDialog }
+  {
+    fetchCommonDetail,
+    fetchBrandedDetail,
+    setOpenDialog,
+    addToIntake,
+    showSearch,
+    clearCurrentResult
+  }
 )(DetailDialog);

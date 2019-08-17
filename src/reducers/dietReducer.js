@@ -129,11 +129,14 @@ const dataPoints = [
 
 export default (state = dataPoints, action) => {
   if (action.type === ADD_TO_INTAKE) {
+
+    const todayObject = state.find(item => item.date === "Today");
+
     return [
       ...state.filter(item => item.date !== "Today"),
       {
-        ...state[0],
-        intake_list: [...state[0].intake_list, action.payload]
+        ...todayObject,
+        intake_list: [...(todayObject.intake_list), action.payload]
       }
     ];
   }

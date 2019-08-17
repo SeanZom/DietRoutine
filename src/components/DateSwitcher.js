@@ -13,20 +13,31 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    backgroundColor: "white",
     color: "white",
     width: "100%",
     marginTop: theme.spacing(1),
     [theme.breakpoints.up("md")]: {
-      width: "560px"
+      width: "560px",
+      backgroundColor: theme.palette.primary.main
     },
 
     "& h2": {
-      fontSize: "1.9rem",
-      fontWeight: 300
+      fontSize: "1.4rem",
+      fontWeight: 500,
+      color: theme.palette.text.primary,
+      [theme.breakpoints.up("md")]: {
+        fontSize: "1.9rem",
+        fontWeight: 300,
+        color: 'white',
+      }
     }
   },
   icon: {
-    color: "white"
+    color: theme.palette.primary.main,
+    [theme.breakpoints.up("md")]: {
+      color: "white"
+    }
   }
 }));
 
@@ -38,7 +49,7 @@ const DateSwitcher = ({ currentDate, setSelectedDate }) => {
   const [index, setIndex] = useState(2);
 
   useEffect(() => {
-    setSelectedDate(dates[index])
+    setSelectedDate(dates[index]);
   }, []);
 
   const handleDateSwitch = operation => {
@@ -48,7 +59,7 @@ const DateSwitcher = ({ currentDate, setSelectedDate }) => {
     } else {
       current -= 1;
     }
-    
+
     if (current === 3) {
       current = 0;
     } else if (current === -1) {
@@ -61,11 +72,11 @@ const DateSwitcher = ({ currentDate, setSelectedDate }) => {
 
   return (
     <div className={classes.root}>
-      <IconButton onClick={() => handleDateSwitch('prev')}>
+      <IconButton onClick={() => handleDateSwitch("prev")}>
         <ArrowLeftIcon className={classes.icon} />
       </IconButton>
       <h2>{currentDate}</h2>
-      <IconButton onClick={() => handleDateSwitch('next')}>
+      <IconButton onClick={() => handleDateSwitch("next")}>
         <ArrowRightcon className={classes.icon} />
       </IconButton>
     </div>

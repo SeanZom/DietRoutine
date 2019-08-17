@@ -14,7 +14,11 @@ const useStyles = makeStyles(theme => ({
   contentContainer: {
     display: "flex",
     flexDirection: "column",
-    maxHeight: "100%"
+    maxHeight: "100%",
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "560px"
+    }
   },
   result: {
     marginTop: "10px",

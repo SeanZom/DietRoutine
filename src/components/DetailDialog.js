@@ -116,7 +116,7 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "1.5px solid rgba(0, 0, 0, 0.12)"
   },
   dataContainer: {
-    marginLeft: theme.spacing(4)
+    marginLeft: theme.spacing(3)
   },
   fieldHeader: {
     fontSize: "0.9rem",

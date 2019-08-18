@@ -225,7 +225,7 @@ const DetailDialog = ({
     if (nutrient) {
       updateServings(nutrient.serving_qty);
     }
-  }, [open, nutrient]);
+  }, [open, nutrient, isCommon, open]);
 
   if (!food) {
     return null;

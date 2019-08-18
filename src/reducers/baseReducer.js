@@ -8,8 +8,32 @@ import {
   SELECTED_FOOD,
   SELECTED_DATE
 } from "../actions/types";
+import { getTheDateBefore } from "../utils/dateutil";
 
-export default (state = {}, action) => {
+const dates = [getTheDateBefore(2), "Yesterday", "Today"];
+
+const getSelectedDate = (lastSelectedDate, operation) => {
+  let current = dates.indexOf(lastSelectedDate);
+  if (operation === "next") {
+    current += 1;
+  } else {
+    current -= 1;
+  }
+
+  if (current === 3) {
+    current = 0;
+  } else if (current === -1) {
+    current = 2;
+  }
+
+  return dates[current];
+};
+
+const initialBase = {
+  selectedDate: dates[2],
+}
+
+export default (state = initialBase, action) => {
   switch (action.type) {
     case SHOW_SEARCH:
       return { ...state, showSearch: action.payload };
@@ -24,7 +48,8 @@ export default (state = {}, action) => {
     case SELECTED_FOOD:
       return { ...state, selectedFood: action.payload };
     case SELECTED_DATE:
-      return { ...state, selectedDate: action.payload };
+      const newSelectedDate = getSelectedDate(state.selectedDate, action.payload);
+      return { ...state, selectedDate: newSelectedDate };
     default:
       return state;
   }

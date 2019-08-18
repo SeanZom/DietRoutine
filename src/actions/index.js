@@ -97,10 +97,10 @@ export const setSelectedFood = food => {
   };
 };
 
-export const setSelectedDate = date => {
+export const setSelectedDate = operation => {
   return {
     type: SELECTED_DATE,
-    payload: date
+    payload: operation
   };
 };
 

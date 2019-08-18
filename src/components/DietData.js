@@ -8,13 +8,21 @@ import { calcTotal } from "../utils/mathutil";
 
 const useStyles = makeStyles(theme => ({
   root: {
+    width: "100%",
+    backgroundColor: "white",
     display: "flex",
     flexDirection: "column",
     alignItems: "stretch",
+    justifyContent: 'center',
     borderBottom: "1.5px solid rgba(0, 0, 0, 0.12)",
     padding: theme.spacing(2.5),
     [theme.breakpoints.up("md")]: {
-      borderBottom: "none"
+      borderBottom: "none",
+      backgroundColor: '#f5f5f5',
+      width: '35%',
+      position: 'absolute',
+      top: 358,
+      left: 0,
     }
   },
   calContainer: {

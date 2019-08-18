@@ -14,9 +14,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: "white",
     width: "100%",
-    paddingBottom: theme.spacing(12),
+    order: 1,
     [theme.breakpoints.up("md")]: {
-      flex: 1
+      width: "65%",
+      height: "calc(100vh - 70px - 64px)",
     }
   },
   thumb: {
@@ -29,6 +30,9 @@ const useStyles = makeStyles(theme => ({
   },
   capitalize: {
     textTransform: "capitalize"
+  },
+  listRoot: {
+    paddingBottom: theme.spacing(12),
   }
 }));
 
@@ -54,7 +58,7 @@ const getCaloriesInfo = ({ serving_qty, nf_calories, serving_size }) => {
 
 const ListContent = ({ listData, classes }) => {
   return (
-    <List>
+    <List classes={{root: classes.listRoot}}>
       {listData.map(item => (
         <React.Fragment key={item.food_name}>
           <ListItem>

@@ -8,11 +8,14 @@ import SearchBar from "./SearchBar";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: "10px",
+    width: "100%",
+    height: 70,
+    padding: "0 10px",
     backgroundColor: theme.palette.primary.main,
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    alignItems: 'center',
+    justifyContent: "center",
+    order: -3,
   },
   searchContainer: {
     width: "100%",
@@ -22,10 +25,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HeadBar = (props) => {
-
+const HeadBar = props => {
   const toggleModal = () => {
-    props.showSearch(!props.isShowSearch)
+    props.showSearch(!props.isShowSearch);
   };
 
   const classes = useStyles();
@@ -34,7 +36,6 @@ const HeadBar = (props) => {
       <div className={classes.searchContainer} onClick={toggleModal}>
         <SearchBar />
       </div>
-
 
       {props.isShowSearch ? <SearchModal onClose={toggleModal} /> : null}
     </div>

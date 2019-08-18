@@ -14,9 +14,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     backgroundColor: "white",
     width: "100%",
+    height: 64,
     padding: theme.spacing(0.5, 2),
     [theme.breakpoints.up("md")]: {
-      backgroundColor: theme.palette.primary.main
+      backgroundColor: theme.palette.primary.main,
+      order: -1,
     },
   },
   container: {

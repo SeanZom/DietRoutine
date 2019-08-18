@@ -1,20 +1,25 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    borderBottom: 'none',
+    width: "100%",
+    borderBottom: "none",
     padding: theme.spacing(2.5, 0),
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
     backgroundColor: theme.palette.primary.main,
+    order: -2,
     [theme.breakpoints.up("md")]: {
+      width: "35%",
+      height: 224,
+      order: 0,
       backgroundColor: "transparent",
       justifyContent: "center",
-      borderBottom: "1.5px solid rgba(0, 0, 0, 0.12)",
+      borderBottom: "1.5px solid rgba(0, 0, 0, 0.12)"
     }
   },
   circleBg: {
@@ -37,6 +42,8 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     margin: theme.spacing(1.5, 1),
     [theme.breakpoints.up("md")]: {
+      width: "100%",
+      textAlign: "center",
       color: theme.palette.text.primary,
       fontWeight: 400,
       order: 1
@@ -70,8 +77,10 @@ const UserProfile = () => {
   const classes = useStyles();
   const theme = useTheme();
   // Check if current screen's width is equal or greater than medium size
-  const isUpMd = useMediaQuery(theme.breakpoints.up('md'));
-  const displayName = isUpMd ? `${user.first_name} ${user.last_name}` : user.first_name;
+  const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  const displayName = isUpMd
+    ? `${user.first_name} ${user.last_name}`
+    : user.first_name;
 
   return (
     <div className={classes.root}>
@@ -80,9 +89,7 @@ const UserProfile = () => {
         src="https://s3.amazonaws.com/uifaces/faces/twitter/maiklam/128.jpg"
         alt="user avatar"
       />
-      <p className={`${classes.title} ${classes.userName}`}>
-        {displayName}
-      </p>
+      <p className={`${classes.title} ${classes.userName}`}>{displayName}</p>
       <div className={`${classes.circleBg} ${classes.weightContainer}`}>
         <p className={classes.title}>{user.weight_kg}</p>
         <p>kg</p>

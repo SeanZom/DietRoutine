@@ -44,20 +44,20 @@ const SearchModal = ({
 }) => {
   const classes = useStyles();
 
-  const pageClick = ({ target }) => {
-    if (target.parentNode.id === "modal") {
-      clearCurrentResult();
-      onClose();
-    }
-  };
-
   useEffect(() => {
+    const pageClick = ({ target }) => {
+      if (target.parentNode.id === "modal") {
+        clearCurrentResult();
+        onClose();
+      }
+    };
+
     document.addEventListener("click", pageClick);
 
     return () => {
       document.removeEventListener("click", pageClick);
     };
-  }, []);
+  }, [clearCurrentResult, onClose]);
 
   const content = () => {
     if (isLoading) {

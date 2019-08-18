@@ -1,5 +1,4 @@
 export const SHOW_SEARCH = 'SHOW_SEARCH';
-export const SEARCH_CONTENT = 'SEARCH_CONTENT';
 export const FETCH_DETAIL = 'FETCH_DETAIL';
 export const FETCH_FOODS = 'FETCH_FOODS';
 export const CURRENT_RESULT = 'CURRENT_RESULT';

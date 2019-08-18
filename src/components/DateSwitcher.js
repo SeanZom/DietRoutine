@@ -59,7 +59,7 @@ const DateSwitcher = ({ currentDate, setSelectedDate }) => {
 
   useEffect(() => {
     setSelectedDate(dates[index]);
-  }, []);
+  }, [index, setSelectedDate]);
 
   const handleDateSwitch = operation => {
     let current = index;
@@ -76,7 +76,6 @@ const DateSwitcher = ({ currentDate, setSelectedDate }) => {
     }
 
     setIndex(current);
-    setSelectedDate(dates[current]);
   };
 
   return (

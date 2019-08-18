@@ -1,6 +1,5 @@
 import {
   SHOW_SEARCH,
-  SEARCH_CONTENT,
   FETCH_FOODS,
   FETCH_DETAIL,
   CURRENT_RESULT,
@@ -18,17 +17,6 @@ export const showSearch = isShow => {
     type: SHOW_SEARCH,
     payload: isShow
   };
-};
-
-export const updateSearchContent = content => dispatch => {
-  if (!content) {
-    dispatch(clearCurrentResult());
-  }
-
-  dispatch({
-    type: SEARCH_CONTENT,
-    payload: content
-  });
 };
 
 export const fetchFoods = query => async dispatch => {

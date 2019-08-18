@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { connect } from "react-redux";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 
-import { updateSearchContent, fetchFoods } from "../actions";
+import { fetchFoods } from "../actions";
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -39,15 +39,15 @@ const useStyles = makeStyles(theme => ({
 
 const SearchBar = ({
   autoFocus = false,
-  searchContent,
-  updateSearchContent,
   fetchFoods
 }) => {
   const classes = useStyles();
 
+  const [keyword, setKeyword] = useState('');
+
   const onSearchSubmit = e => {
     e.preventDefault();
-    fetchFoods(searchContent);
+    fetchFoods(keyword);
   };
 
   return (
@@ -66,8 +66,8 @@ const SearchBar = ({
               input: classes.inputInput
             }}
             inputProps={{ "aria-label": "search" }}
-            value={searchContent}
-            onChange={e => updateSearchContent(e.target.value)}
+            value={keyword}
+            onChange={e => setKeyword(e.target.value)}
           />
         </form>
       </div>
@@ -75,13 +75,7 @@ const SearchBar = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    searchContent: state.base.searchContent
-  };
-};
-
 export default connect(
-  mapStateToProps,
-  { updateSearchContent, fetchFoods }
+  null,
+  { fetchFoods }
 )(SearchBar);

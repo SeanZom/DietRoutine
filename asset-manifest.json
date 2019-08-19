@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/diet-routine/static/css/main.1f3400e6.chunk.css",
-    "main.js": "/diet-routine/static/js/main.5b5d1ca4.chunk.js",
-    "main.js.map": "/diet-routine/static/js/main.5b5d1ca4.chunk.js.map",
-    "runtime~main.js": "/diet-routine/static/js/runtime~main.f976091a.js",
-    "runtime~main.js.map": "/diet-routine/static/js/runtime~main.f976091a.js.map",
-    "static/js/2.6217fb2d.chunk.js": "/diet-routine/static/js/2.6217fb2d.chunk.js",
-    "static/js/2.6217fb2d.chunk.js.map": "/diet-routine/static/js/2.6217fb2d.chunk.js.map",
-    "index.html": "/diet-routine/index.html",
-    "precache-manifest.1b944cd1dbf8c53e75615bb302851ae3.js": "/diet-routine/precache-manifest.1b944cd1dbf8c53e75615bb302851ae3.js",
-    "service-worker.js": "/diet-routine/service-worker.js",
-    "static/css/main.1f3400e6.chunk.css.map": "/diet-routine/static/css/main.1f3400e6.chunk.css.map"
+    "main.css": "/DietRoutine/static/css/main.1f3400e6.chunk.css",
+    "main.js": "/DietRoutine/static/js/main.5b5d1ca4.chunk.js",
+    "main.js.map": "/DietRoutine/static/js/main.5b5d1ca4.chunk.js.map",
+    "runtime~main.js": "/DietRoutine/static/js/runtime~main.00d3e89d.js",
+    "runtime~main.js.map": "/DietRoutine/static/js/runtime~main.00d3e89d.js.map",
+    "static/js/2.6217fb2d.chunk.js": "/DietRoutine/static/js/2.6217fb2d.chunk.js",
+    "static/js/2.6217fb2d.chunk.js.map": "/DietRoutine/static/js/2.6217fb2d.chunk.js.map",
+    "index.html": "/DietRoutine/index.html",
+    "precache-manifest.0e76832c8a697cbaf8a49343385f622c.js": "/DietRoutine/precache-manifest.0e76832c8a697cbaf8a49343385f622c.js",
+    "service-worker.js": "/DietRoutine/service-worker.js",
+    "static/css/main.1f3400e6.chunk.css.map": "/DietRoutine/static/css/main.1f3400e6.chunk.css.map"
   }
 }
